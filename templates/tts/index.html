@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block con %}
+    <h1><b>TTS 서비스</b></h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="bf" class="form-control mt-5" style="height: 200px;" placeholder="문장을 입력해주세요">{{ bf }}</textarea>
+
+        <div class="row mt-3">
+            <div class="col-sm-10">
+                <input name="fname" type="text" class="form-control" value="{{fn}}" placeholder="파일명을 입력해주세요">
+            </div>
+            <div class="col-sm-2">
+                <select name="lang" class="form-select">
+                    <option value="ko" {% if la == "ko" %} selected {% endif %}>한국어</option>
+                    <option value="en" {% if la == "en" %} selected {% endif %}>영어</option>
+                    <option value="zh-cn" {% if la == "zh-cn" %} selected {% endif %}>중국어</option>
+                    <option value="ja" {% if la == "ja" %} selected {% endif %}>일본어</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mt-3 text-center">
+            <button class="btn btn-dark" style="width: 40%;">변환</button>
+            <a href="/media/tts/{{fn}}.mp3" download><button class="btn btn-dark" type="button" style="width: 40%;" {% if not fn %} disabled {% endif %}>다운</button></a>
+        </div>
+    </form>
+{% endblock %}
